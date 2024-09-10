@@ -101,7 +101,7 @@ void AbstractMicrorlStreamSession::setup() {
     print(F(" "));
     println(FIRMWARE_COPY);
     flush();
-    delay(500);
+    // delay(500);
     print(F("OK"));
     flush();
 
