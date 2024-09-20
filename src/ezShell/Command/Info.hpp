@@ -86,7 +86,5 @@ namespace Stm32Shell::ezShell::Command {
             return ret;
         }
     };
-
-    inline Info info;
 }
 #endif

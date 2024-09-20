@@ -27,7 +27,5 @@ namespace Stm32Shell::ezShell::Command {
             return ret;
         }
     };
-
-    inline Help help;
 }
 #endif
