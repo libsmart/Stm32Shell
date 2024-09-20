@@ -65,7 +65,7 @@ int Shell::executeCallback(int argc, const char *const *argv) {
                 cmdCtx.setLogger(getLogger());
                 cmdCtx.setCommand(cmdRegistry[i]);
                 cmdCtx.registerOnWriteFunction([this]() {
-                    Logger.println("onWriteFn()");
+                    // Logger.println("onWriteFn()");
                     if (this->cmdCtx.outputLength() > 0) {
                         const auto result = this->cmdCtx.outputRead(
                             reinterpret_cast<char *>(this->getTxBuffer()->getWritePointer()),
@@ -83,8 +83,11 @@ int Shell::executeCallback(int argc, const char *const *argv) {
                 if (cmdCtx.isCmdSync()) {
                     cmdCtx.do_run();
                     cmdCtx.do_cleanup();
+                    cmdCtx.recycle();
                     return 0;
                 }
+
+                cmdCtx.recycle();
                 break;
             }
         }
@@ -92,6 +95,7 @@ int Shell::executeCallback(int argc, const char *const *argv) {
 
     // So something useful with the tokens
 
+    this->getTxBuffer()->printf("ERROR: Command '%s' not found\r\n", argv[0]);
 
     return 0; // Everything ok
 }

@@ -287,6 +287,8 @@ namespace Stm32Shell::Readline {
         uint8_t iacCmd{};
 
     protected:
+        void onWriteTx() override;
+
         template<class T, class Method, Method m, class... Params>
         /**
          * @brief Bounce Function

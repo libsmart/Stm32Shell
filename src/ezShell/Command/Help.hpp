@@ -8,6 +8,7 @@
 
 #include "globals.hpp"
 #include "Command/AbstractCommand.hpp"
+#include "ezShell/Shell.hpp"
 
 namespace Stm32Shell::ezShell::Command {
     class Help : public Stm32Shell::Command::AbstractCommand {

@@ -74,6 +74,12 @@ void AbstractMicrorlStreamSession::microrlPostCommandCb(int res, int argc, const
     LIBSMART_UNUSED(argv);
 }
 
+void AbstractMicrorlStreamSession::onWriteTx() {
+    if(isInIsr()) return;
+    StreamRxTx::onWriteTx();
+    sessionOwner->dataReadyTx(this);
+}
+
 void AbstractMicrorlStreamSession::setup() {
     log(Stm32ItmLogger::LoggerInterface::Severity::INFORMATIONAL)
             ->println("Stm32Shell::Readline::AbstractMicrorlStreamSession::setup()");
