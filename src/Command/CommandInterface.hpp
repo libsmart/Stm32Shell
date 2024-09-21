@@ -119,6 +119,8 @@ namespace Stm32Shell::Command {
 
         virtual uint32_t getRunTimeout() = 0;
 
+        virtual void setParam(int argc, const char *const *argv) = 0;
+
     protected:
         virtual void onRunTimeout() = 0;
 

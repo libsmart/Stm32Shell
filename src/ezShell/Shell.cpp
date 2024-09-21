@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2024 Roland Rusch, easy-smart solution GmbH <roland.rusch@easy-smart.ch>
- * SPDX-License-Identifier: AGPL-3.0-only
+ * SPDX-License-Identifier: BSD-3-Clause
  */
 
 #include "Shell.hpp"
@@ -64,6 +64,9 @@ int Shell::executeCallback(int argc, const char *const *argv) {
 
                 cmdCtx.setLogger(getLogger());
                 cmdCtx.setCommand(cmdRegistry[i]);
+
+                cmdRegistry[i]->setParam(argc, argv);
+
                 cmdCtx.registerOnWriteFunction([this]() {
                     // Logger.println("onWriteFn()");
                     if (this->cmdCtx.outputLength() > 0) {

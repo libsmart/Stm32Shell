@@ -63,8 +63,12 @@ namespace Stm32Shell::Command {
             log(Stm32ItmLogger::LoggerInterface::Severity::INFORMATIONAL)
                     ->println("::recycle()");
             setCommandLine("", 0);
+            argc = 0;
+            argv = nullptr;
         };
 
+
+        virtual void setParam(int argc, const char *const *argv);
 
         virtual void setParam(char paramName, const char *paramString);
 
@@ -151,6 +155,10 @@ namespace Stm32Shell::Command {
     protected:
         /** true: the command is executed immediately and synchronous. */
         bool isSync = false;
+
+
+        int argc = 0;
+        const char *const *argv = nullptr;
 
     private:
         CommandContextInterface *ctx{};

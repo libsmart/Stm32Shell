@@ -62,6 +62,11 @@ CommandContextInterface::cmdOutputBufferClass * AbstractCommand::out() {
     return &ctx->cmdOutputBuffer;
 }
 
+void AbstractCommand::setParam(int argc, const char * const *argv) {
+    this->argc = argc;
+    this->argv = argv;
+}
+
 void AbstractCommand::setParam(char paramName, const char *paramString) {
     setParam(paramName, strtol(paramString, nullptr, 10));
     setParam(paramName, strtod(paramString, nullptr));
