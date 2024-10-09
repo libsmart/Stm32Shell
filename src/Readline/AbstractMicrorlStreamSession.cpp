@@ -6,8 +6,9 @@
 #include "AbstractMicrorlStreamSession.hpp"
 #include <climits>
 #include <microrl.h>
-#include "globals.hpp"
+#include "defines.h"
 #include "Helper.hpp"
+#include "StreamSession/StreamSessionAware.hpp"
 
 microrl_pre_cmd_fn getPreCommandCallbackPointer() {
     return Stm32Shell::Readline::AbstractMicrorlStreamSession::getPreCommandCallback();
@@ -174,6 +175,9 @@ void AbstractMicrorlStreamSession::end() {
     microrl_t{};
     iac = 0;
     iacCmd = 0;
+}
+
+void AbstractMicrorlStreamSession::errorHandler() {
 }
 
 microrlr_t AbstractMicrorlStreamSession::processingInput(const void *data_ptr, size_t len) {

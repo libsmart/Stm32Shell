@@ -6,7 +6,6 @@
 #ifndef LIBSMART_STM32SHELL_EZSHELL_COMMANDS_HELP_HPP
 #define LIBSMART_STM32SHELL_EZSHELL_COMMANDS_HELP_HPP
 
-#include "globals.hpp"
 #include "Command/AbstractCommand.hpp"
 #include "ezShell/Shell.hpp"
 
@@ -16,7 +15,7 @@ namespace Stm32Shell::ezShell::Command {
         Help() {
             Nameable::setName("help");
             isSync = true;
-            setLogger(&Logger);
+            setLogger(&Stm32ItmLogger::logger);
         }
 
         runReturn run() override {

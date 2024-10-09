@@ -53,6 +53,7 @@ namespace Stm32Shell::Readline {
 
         void end() override;
 
+        void errorHandler() override;
 
         /**
          * @brief Processes input data for the microrl stream session.

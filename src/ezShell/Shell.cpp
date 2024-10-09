@@ -4,7 +4,6 @@
  */
 
 #include "Shell.hpp"
-#include "globals.hpp"
 #include "Command/Help.hpp"
 
 using namespace Stm32Shell::ezShell;
@@ -28,7 +27,7 @@ void Shell::registerCmd(CommandInterface *cmd) {
     for (size_t i = 0; i < cmdRegistry.size(); i++) {
         if (cmdRegistry[i] == nullptr) {
             cmdRegistry[i] = cmd;
-            Logger.setSeverity(Stm32ItmLogger::LoggerInterface::Severity::INFORMATIONAL)
+            Stm32ItmLogger::logger.setSeverity(Stm32ItmLogger::LoggerInterface::Severity::INFORMATIONAL)
                     ->printf("Stm32Shell::ezShell::Shell::registerCmd %lu/%lu\r\n", registeredCommands(),
                              cmdRegistry.size());
             return;
