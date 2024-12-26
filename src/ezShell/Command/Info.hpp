@@ -6,10 +6,10 @@
 #ifndef LIBSMART_STM32SHELL_EZSHELL_COMMANDS_INFO_HPP
 #define LIBSMART_STM32SHELL_EZSHELL_COMMANDS_INFO_HPP
 
-#include "globals.hpp"
-#include "Stm32NetX.hpp"
+#include <main.h>
 #include "Command/AbstractCommand.hpp"
 #include "ezShell/Shell.hpp"
+#include "MCU/ControllerId.hpp"
 
 #define OUTPUT_PAUSE do{out()->flush();delay(20);}while(false);
 
@@ -45,6 +45,11 @@ namespace Stm32Shell::ezShell::Command {
             out()->println(FIRMWARE_BUILDTIME);
             OUTPUT_PAUSE;
 
+            out()->print(F("CONTROLLER_ID: "));
+            out()->println(Stm32Common::ControllerId::getControllerId());
+            OUTPUT_PAUSE;
+
+#ifdef LIBSMART_STM32NETX
             out()->printf("HARDWARE_MAC: %02x:%02x:%02x:%02x:%02x:%02x\r\n",
                           static_cast<unsigned int>(heth.Init.MACAddr[0]),
                           static_cast<unsigned int>(heth.Init.MACAddr[1]),
@@ -81,7 +86,7 @@ namespace Stm32Shell::ezShell::Command {
             );
             out()->println();
             OUTPUT_PAUSE;
-
+#endif
             return ret;
         }
     };
