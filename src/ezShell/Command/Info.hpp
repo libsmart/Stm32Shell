@@ -87,6 +87,21 @@ namespace Stm32Shell::ezShell::Command {
             out()->println();
             OUTPUT_PAUSE;
 #endif
+
+#ifdef LIBSMART_STM32RTC
+            try {
+                Stm32Rtc::DateTimeType dateTime;
+                rtc.getDateTime(dateTime);
+                out()->printf("RTC_DATE_TIME: %02d.%02d.%04d %02d:%02d:%02d\r\n",
+                              dateTime.Date, dateTime.Month, dateTime.Year + 2000,
+                              dateTime.Hours, dateTime.Minutes, dateTime.Seconds);
+            } catch (const std::exception &e) {
+                Stm32ItmLogger::logger.setSeverity(Stm32ItmLogger::LoggerInterface::Severity::ERROR)
+                        ->printf("ERROR: %s\r\n", e.what());
+                out()->println("RTC_DATE_TIME: ERROR!");
+            }
+#endif
+
             return ret;
         }
     };
