@@ -6,9 +6,10 @@
 #include "AbstractMicrorlStreamSession.hpp"
 #include <climits>
 #include <microrl.h>
-#include "defines.h"
 #include "Helper.hpp"
 #include "StreamSession/StreamSessionAware.hpp"
+#include <Stm32ItmLogger.hpp>
+#include <defines.h>
 
 microrl_pre_cmd_fn getPreCommandCallbackPointer() {
     return Stm32Shell::Readline::AbstractMicrorlStreamSession::getPreCommandCallback();

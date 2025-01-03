@@ -8,7 +8,6 @@
 
 #include "CommandContext.hpp"
 #include "CommandInterface.hpp"
-#include "main.hpp"
 #include "Loggable.hpp"
 
 namespace Stm32Shell::Command {
