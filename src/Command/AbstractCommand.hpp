@@ -18,48 +18,48 @@ namespace Stm32Shell::Command {
         AbstractCommand();
 
         preFlightCheckReturn preFlightCheck() override {
-            log(Stm32ItmLogger::LoggerInterface::Severity::INFORMATIONAL)
+            log(Stm32ItmLogger::LoggerInterface::Severity::DEBUGGING)
                     ->print(getName());
-            log(Stm32ItmLogger::LoggerInterface::Severity::INFORMATIONAL)
+            log(Stm32ItmLogger::LoggerInterface::Severity::DEBUGGING)
                     ->println("::preFlightCheck()");
             return preFlightCheckReturn::READY;
         };
 
         initReturn init() override {
-            log(Stm32ItmLogger::LoggerInterface::Severity::INFORMATIONAL)
+            log(Stm32ItmLogger::LoggerInterface::Severity::DEBUGGING)
                     ->print(getName());
-            log(Stm32ItmLogger::LoggerInterface::Severity::INFORMATIONAL)
+            log(Stm32ItmLogger::LoggerInterface::Severity::DEBUGGING)
                     ->println("::init()");
             return initReturn::READY;
         };
 
         runReturn run() override {
-            log(Stm32ItmLogger::LoggerInterface::Severity::INFORMATIONAL)
+            log(Stm32ItmLogger::LoggerInterface::Severity::DEBUGGING)
                     ->print(getName());
-            log(Stm32ItmLogger::LoggerInterface::Severity::INFORMATIONAL)
+            log(Stm32ItmLogger::LoggerInterface::Severity::DEBUGGING)
                     ->println("::run()");
             return runReturn::FINISHED;
         };
 
         cleanupReturn cleanup() override {
-            log(Stm32ItmLogger::LoggerInterface::Severity::INFORMATIONAL)
+            log(Stm32ItmLogger::LoggerInterface::Severity::DEBUGGING)
                     ->print(getName());
-            log(Stm32ItmLogger::LoggerInterface::Severity::INFORMATIONAL)
+            log(Stm32ItmLogger::LoggerInterface::Severity::DEBUGGING)
                     ->println("::cleanup()");
             return cleanupReturn::OK;
         };
 
         void terminate() override {
-            log(Stm32ItmLogger::LoggerInterface::Severity::INFORMATIONAL)
+            log(Stm32ItmLogger::LoggerInterface::Severity::DEBUGGING)
                     ->print(getName());
-            log(Stm32ItmLogger::LoggerInterface::Severity::INFORMATIONAL)
+            log(Stm32ItmLogger::LoggerInterface::Severity::DEBUGGING)
                     ->println("::terminate()");
         };
 
         void recycle() override {
-            log(Stm32ItmLogger::LoggerInterface::Severity::INFORMATIONAL)
+            log(Stm32ItmLogger::LoggerInterface::Severity::DEBUGGING)
                     ->print(getName());
-            log(Stm32ItmLogger::LoggerInterface::Severity::INFORMATIONAL)
+            log(Stm32ItmLogger::LoggerInterface::Severity::DEBUGGING)
                     ->println("::recycle()");
             setCommandLine("", 0);
             argc = 0;
