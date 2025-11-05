@@ -9,8 +9,6 @@
 #include <functional>
 #include "StringBuffer.hpp"
 
-#define LIBSMART_STM32SHELL_COMMAND_OUTPUT_BUFFER_SIZE 256
-
 
 namespace Stm32Shell::Command {
     class AbstractCommand;
