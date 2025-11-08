@@ -67,18 +67,19 @@ int Shell::executeCallback(int argc, const char *const *argv) {
                 cmdRegistry[i]->setParam(argc, argv);
 
                 cmdCtx.registerOnWriteFunction([this]() {
-                    // Logger.println("onWriteFn()");
                     if (this->cmdCtx.outputLength() > 0) {
+                        __disable_irq();
                         const auto result = this->cmdCtx.outputRead(
                             reinterpret_cast<char *>(this->getTxBuffer()->getWritePointer()),
                             this->getTxBuffer()->getRemainingSpace());
                         this->getTxBuffer()->setWrittenBytes(result);
+                        __enable_irq();
                     }
                 });
 
-                cmdCtx.registerOnCmdEndFunction([this]() {
+                // cmdCtx.registerOnCmdEndFunction([this]() {
                     // Debugger_log(DBG, "onCmdEndFn()");
-                });
+                // });
 
                 cmdCtx.do_preFlightCheck();
                 cmdCtx.do_init();
