@@ -59,33 +59,37 @@ namespace Stm32Shell::ezShell::Command {
                           static_cast<unsigned int>(heth.Init.MACAddr[5]));
             OUTPUT_PAUSE;
 
+            if (Stm32NetX::NX == nullptr) return ret;
             ULONG ip_address, network_mask;
-            Stm32NetX::NX->getIpInstance()->ipAddressGet(&ip_address, &network_mask);
-            out()->printf("IP_ADDRESS: %lu.%lu.%lu.%lu\r\n",
-                          (ip_address >> 24) & 0xff,
-                          (ip_address >> 16) & 0xff,
-                          (ip_address >> 8) & 0xff,
-                          (ip_address >> 0) & 0xff
-            );
-            OUTPUT_PAUSE;
+            const auto ipInst = Stm32NetX::NX->getIpInstance();
+            if (ipInst != nullptr) {
+                ipInst->ipAddressGet(&ip_address, &network_mask);
+                out()->printf("IP_ADDRESS: %lu.%lu.%lu.%lu\r\n",
+                              (ip_address >> 24) & 0xff,
+                              (ip_address >> 16) & 0xff,
+                              (ip_address >> 8) & 0xff,
+                              (ip_address >> 0) & 0xff
+                );
+                OUTPUT_PAUSE;
 
-            out()->printf("NETWORK_MASK: %lu.%lu.%lu.%lu\r\n",
-                          (network_mask >> 24) & 0xff,
-                          (network_mask >> 16) & 0xff,
-                          (network_mask >> 8) & 0xff,
-                          (network_mask >> 0) & 0xff
-            );
-            OUTPUT_PAUSE;
+                out()->printf("NETWORK_MASK: %lu.%lu.%lu.%lu\r\n",
+                              (network_mask >> 24) & 0xff,
+                              (network_mask >> 16) & 0xff,
+                              (network_mask >> 8) & 0xff,
+                              (network_mask >> 0) & 0xff
+                );
+                OUTPUT_PAUSE;
 
-            const auto gateway_address = Stm32NetX::NX->getIpInstance()->ipGatewayAddressGet();
-            out()->printf("GATEWAY_ADDRESS: %lu.%lu.%lu.%lu\r\n",
-                          (gateway_address >> 24) & 0xff,
-                          (gateway_address >> 16) & 0xff,
-                          (gateway_address >> 8) & 0xff,
-                          (gateway_address >> 0) & 0xff
-            );
-            out()->println();
-            OUTPUT_PAUSE;
+                const auto gateway_address = Stm32NetX::NX->getIpInstance()->ipGatewayAddressGet();
+                out()->printf("GATEWAY_ADDRESS: %lu.%lu.%lu.%lu\r\n",
+                              (gateway_address >> 24) & 0xff,
+                              (gateway_address >> 16) & 0xff,
+                              (gateway_address >> 8) & 0xff,
+                              (gateway_address >> 0) & 0xff
+                );
+                out()->println();
+                OUTPUT_PAUSE;
+            }
 #endif
 
 #ifdef LIBSMART_STM32RTC
