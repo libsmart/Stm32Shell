@@ -1,15 +1,18 @@
 /*
- * SPDX-FileCopyrightText: 2024 Roland Rusch, easy-smart solution GmbH <roland.rusch@easy-smart.ch>
+ * SPDX-FileCopyrightText: 2026 Roland Rusch, easy-smart solution GmbH <roland.rusch@easy-smart.ch>
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#ifndef LIBSMART_STM32SHELL_EZSHELL_COMMANDS_INFO_HPP
-#define LIBSMART_STM32SHELL_EZSHELL_COMMANDS_INFO_HPP
+#pragma once
 
 #include <main.h>
 #include "Command/AbstractCommand.hpp"
-#include "ezShell/Shell.hpp"
 #include "MCU/ControllerId.hpp"
+
+extern "C" {
+#include "lan8742.h"
+#include "nx_stm32_phy_driver.h"
+}
 
 #define OUTPUT_PAUSE do{out()->flush();delay(20);}while(false);
 
@@ -58,6 +61,29 @@ namespace Stm32Shell::ezShell::Command {
                           static_cast<unsigned int>(heth.Init.MACAddr[4]),
                           static_cast<unsigned int>(heth.Init.MACAddr[5]));
             OUTPUT_PAUSE;
+
+            const auto linkState = nx_eth_phy_get_link_state();
+            auto linkStateStr = [](const int32_t status)-> const char * {
+                switch (status) {
+                    case LAN8742_STATUS_READ_ERROR:
+                        return "LAN8742_STATUS_READ_ERROR";
+                    case LAN8742_STATUS_LINK_DOWN:
+                        return "LAN8742_STATUS_LINK_DOWN";
+                    case LAN8742_STATUS_100MBITS_FULLDUPLEX:
+                        return "LAN8742_STATUS_100MBITS_FULLDUPLEX";
+                    case LAN8742_STATUS_100MBITS_HALFDUPLEX:
+                        return "LAN8742_STATUS_100MBITS_HALFDUPLEX";
+                    case LAN8742_STATUS_10MBITS_FULLDUPLEX:
+                        return "LAN8742_STATUS_10MBITS_FULLDUPLEX";
+                    case LAN8742_STATUS_10MBITS_HALFDUPLEX:
+                        return "LAN8742_STATUS_10MBITS_HALFDUPLEX";
+                    case LAN8742_STATUS_AUTONEGO_NOTDONE:
+                        return "LAN8742_STATUS_AUTONEGO_NOTDONE";
+                    default:
+                        return "Unknown";
+                }
+            };
+            out()->printf("LINK_STATE: %s (%d)\r\n", linkStateStr(linkState), linkState);
 
             if (Stm32NetX::NX == nullptr) return ret;
             ULONG ip_address, network_mask;
@@ -110,4 +136,3 @@ namespace Stm32Shell::ezShell::Command {
         }
     };
 }
-#endif
